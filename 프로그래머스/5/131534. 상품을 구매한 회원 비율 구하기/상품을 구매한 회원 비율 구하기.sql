@@ -1,0 +1,11 @@
+-- 코드를 입력하세요
+SELECT YEAR(A.SALES_DATE) AS YEAR, MONTH(A.SALES_DATE) AS MONTH, COUNT(DISTINCT A.USER_ID) AS PURCHASED_USERS, 
+ ROUND((COUNT(DISTINCT A.USER_ID) / (SELECT COUNT(DISTINCT USER_ID) 
+                                           FROM USER_INFO 
+                                           WHERE YEAR(JOINED) IN ('2021'))),1) AS PUCHASED_RATIO 
+FROM (SELECT USER_ID FROM USER_INFO WHERE YEAR(JOINED) IN ('2021') ) AS B
+JOIN ONLINE_SALE A ON A.USER_ID = B.USER_ID
+GROUP BY YEAR, MONTH 
+ORDER BY YEAR, MONTH ASC
+
+-- PUCHASED_RATIO를 계산할 때, COUNT(B.USER_ID)는 전체 사용자 수가 아닌, 해당 월에 포함된 사용자만을 계산할 수 있으므로 전체 사용자 수를 구하는 방식으로 조정할 필요가 있을 수 있습니다.
