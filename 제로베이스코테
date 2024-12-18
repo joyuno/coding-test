@@ -1,0 +1,22 @@
+def solution(phrases):
+    answers=[]
+    for i in range(len(phrases)):
+        answer = phrases[i]
+        last_word = answer.split(" ")[-1]
+        if len(answer.split(" ")) ==1:
+            answers.append(last_word)
+        for j in range(len(phrases)):
+            if i !=j:
+                first_word = phrases[j].split(" ")[0]
+                if first_word == last_word:
+                    answer +=(" "+ " ".join(phrases[j].split(" ")[1:]))
+                    answers.append(answer)
+    return answers
+
+    def solution(x, y):
+    answer = 0
+    y_dict = {item[0]: item[1] for item in y}
+
+    answer = sum(x_item[1] * y_dict[x_item[0]] for x_item in x if x_item[0] in y_dict)
+    return answer
+
