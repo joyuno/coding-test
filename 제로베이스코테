@@ -94,3 +94,75 @@ def solution(N, M):
     gcd = math.gcd(N,M)
     answer = N+M-gcd
     return answer
+
+def solution(arr, target):
+    arr=sorted(set(arr))
+    closet = float('inf')
+
+    for i in range(len(arr)-2):
+        left, right = i+1, len(arr)-1
+        while left < right:
+            current_sum = arr[i] + arr[left] + arr[right]
+
+            if abs(current_sum-target) < abs(closet - target):
+                closet = current_sum
+            elif abs(current_sum-target) == abs(closet -target):
+                closet = min(current_sum , closet)
+            if current_sum < target:
+                left +=1
+            elif current_sum > target:
+                right -=1
+            else:
+                return current_sum
+
+    return closet
+
+def solution(s):
+    s = s.lstrip()
+    if not s:
+        return 0
+    sign = 1
+    if s[0] == "-":
+        sign = -1
+        s = s[1:].lstrip()
+    elif s[0] == "+":
+        s = s[1:].lstrip()
+    a = []
+    for st in s:
+        if st.isdigit():
+            a.append(st)
+        else:
+            break
+    num = sign * int("".join(a))
+    int_min, int_max = -(2**31), (2**31) - 1
+    if num < int_min:
+        return int_min
+    if num > int_max:
+        return int_max
+
+    return num
+
+def solution(heights):
+    max_area = 0  # 최대 면적
+    n = len(heights)
+
+    # 각 막대에서 가능한 최대 면적 계산
+    for i in range(n):
+        current_height = heights[i]
+        left = i  # 왼쪽 확장
+        right = i  # 오른쪽 확장
+
+        # 왼쪽으로 확장 (현재 높이보다 크거나 같은 막대)
+        while left > 0 and heights[left - 1] >= current_height:
+            left -= 1
+
+        # 오른쪽으로 확장 (현재 높이보다 크거나 같은 막대)
+        while right < n - 1 and heights[right + 1] >= current_height:
+            right += 1
+
+        # 너비와 면적 계산
+        width = right - left + 1
+        area = current_height * width
+        max_area = max(max_area, area)  # 최대 면적 갱신
+
+    return max_area
