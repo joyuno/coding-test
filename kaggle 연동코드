@@ -1,0 +1,31 @@
+!pip install kaggle
+from google.colab import files
+files.upload()
+
+ls -1ha kaggle.json
+
+!kaggle competitions download -c ""
+#마운트코드
+from google.colab import drive
+drive.mount('/content/drive')
+
+!pip3 install --upgrade torch torchvision
+
+!unzip -q "/content/learning-agency-lab-automated-essay-scoring-2.zip" -d "/content/destination_folder"
+
+!pip install datasets
+
+import kagglehub
+
+# Download latest version
+model_path = kagglehub.dataset_download("hideyukizushi/aes2-400-20240419134941")
+
+# 캐시된 데이터 사용 여부 결정 캐시에 데이터가 있으면 로드 아니면 새로진행
+if ENABLE_DONT_WASTE_YOUR_RUN_TIME:
+    # 캐시에서 데이터 로드
+    with open("/root/.cache/kagglehub/datasets/batprem/aes2-cache/versions/2/paragraph_preprocess_tmp.pickle", "rb") as f:
+        tmp = pickle.load(f)
+    with open("/root/.cache/kagglehub/datasets/batprem/aes2-cache/versions/2/paragraph_preprocess_train_feats.pickle", "rb") as f:
+        train_feats = pickle.load(f)
+
+os.listdir("/root/.cache/kagglehub/datasets/batprem/aes2-cache/versions/2/paragraph_preprocess_train_feats.pickle")
