@@ -166,3 +166,29 @@ def solution(heights):
         max_area = max(max_area, area)  # 최대 면적 갱신
 
     return max_area
+
+def solution(s, t):
+    count_dict = {}
+    s_list = [v for v, c in s for _ in range(c)]
+    t_list = [v for v, c in t for _ in range(c)]
+    result= [int(s_list[x]) * int(t_list[x])  for x in range(len(s_list))]
+    for re in result:
+        if re in count_dict:
+            count_dict[re] += 1 
+        else:
+            count_dict[re] = 1
+    answer = [[key, value] for key, value in count_dict.items()]
+    return answer
+
+def solution(nums):
+    answer = 0
+    n = len(nums)
+    dp = [1] * n
+
+    for i in range(n):
+        for j in range(i):
+            if nums[j] < nums[i]: 
+                dp[i] = max(dp[i], dp[j] + 1)
+
+    answer= max(dp)
+    return answer
